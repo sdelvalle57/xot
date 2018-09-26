@@ -1,0 +1,248 @@
+{
+  "contractName": "IVoteXot",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_newLeader",
+          "type": "address"
+        }
+      ],
+      "name": "vote",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.4.24;\r\n\r\nimport \"../xot_token/ERC20.sol\";\r\n\r\n/**\r\n* @title IVoteXot\r\n* @dev Interface for VoteVox\r\n*/\r\n\r\ncontract IVoteXot {\r\n\r\n    function vote(address _newLeader) external;\r\n  // function setNewLeader(address _newLeader) private;\r\n  //  function setNumberOfVotes(uint256 _number) external;\r\n}",
+  "sourcePath": "E:\\Ethereum\\XOT\\contracts\\voting\\IVoteXot.sol",
+  "ast": {
+    "absolutePath": "/E/Ethereum/XOT/contracts/voting/IVoteXot.sol",
+    "exportedSymbols": {
+      "IVoteXot": [
+        102
+      ]
+    },
+    "id": 103,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 95,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:1"
+      },
+      {
+        "absolutePath": "/E/Ethereum/XOT/contracts/xot_token/ERC20.sol",
+        "file": "../xot_token/ERC20.sol",
+        "id": 96,
+        "nodeType": "ImportDirective",
+        "scope": 103,
+        "sourceUnit": 276,
+        "src": "28:32:1",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title IVoteXot\r\n@dev Interface for VoteVox\r",
+        "fullyImplemented": false,
+        "id": 102,
+        "linearizedBaseContracts": [
+          102
+        ],
+        "name": "IVoteXot",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 101,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "vote",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 99,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 98,
+                  "name": "_newLeader",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 101,
+                  "src": "165:18:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 97,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "165:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "164:20:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 100,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "193:0:1"
+            },
+            "scope": 102,
+            "src": "151:43:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 103,
+        "src": "124:190:1"
+      }
+    ],
+    "src": "0:314:1"
+  },
+  "legacyAST": {
+    "absolutePath": "/E/Ethereum/XOT/contracts/voting/IVoteXot.sol",
+    "exportedSymbols": {
+      "IVoteXot": [
+        102
+      ]
+    },
+    "id": 103,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 95,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:1"
+      },
+      {
+        "absolutePath": "/E/Ethereum/XOT/contracts/xot_token/ERC20.sol",
+        "file": "../xot_token/ERC20.sol",
+        "id": 96,
+        "nodeType": "ImportDirective",
+        "scope": 103,
+        "sourceUnit": 276,
+        "src": "28:32:1",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title IVoteXot\r\n@dev Interface for VoteVox\r",
+        "fullyImplemented": false,
+        "id": 102,
+        "linearizedBaseContracts": [
+          102
+        ],
+        "name": "IVoteXot",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 101,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "vote",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 99,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 98,
+                  "name": "_newLeader",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 101,
+                  "src": "165:18:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 97,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "165:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "164:20:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 100,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "193:0:1"
+            },
+            "scope": 102,
+            "src": "151:43:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 103,
+        "src": "124:190:1"
+      }
+    ],
+    "src": "0:314:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-09-26T12:34:39.673Z"
+}

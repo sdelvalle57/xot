@@ -11,7 +11,7 @@ contract IVoteXot {
 
     event Leader(address leader);
 
+    function propose(address _proposed) external;
     function vote(address _newLeader) external;
-  // function setNewLeader(address _newLeader) private;
-  //  function setNumberOfVotes(uint256 _number) external;
+    function proposeItself(bool value) external;
 }

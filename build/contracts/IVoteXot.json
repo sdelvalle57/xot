@@ -2,6 +2,32 @@
   "contractName": "IVoteXot",
   "abi": [
     {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "leader",
+          "type": "address"
+        }
+      ],
+      "name": "Leader",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_proposed",
+          "type": "address"
+        }
+      ],
+      "name": "propose",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "constant": false,
       "inputs": [
         {
@@ -14,22 +40,36 @@
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "bool"
+        }
+      ],
+      "name": "proposeItself",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ],
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity ^0.4.24;\r\n\r\nimport \"../xot_token/ERC20.sol\";\r\n\r\n/**\r\n* @title IVoteXot\r\n* @dev Interface for VoteVox\r\n*/\r\n\r\ncontract IVoteXot {\r\n\r\n    function vote(address _newLeader) external;\r\n  // function setNewLeader(address _newLeader) private;\r\n  //  function setNumberOfVotes(uint256 _number) external;\r\n}",
+  "source": "pragma solidity ^0.4.24;\r\n\r\nimport \"../xot_token/ERC20.sol\";\r\n\r\n/**\r\n* @title IVoteXot\r\n* @dev Interface for VoteVox\r\n*/\r\n\r\ncontract IVoteXot {\r\n\r\n    event Leader(address leader);\r\n\r\n    function propose(address _proposed) external;\r\n    function vote(address _newLeader) external;\r\n    function proposeItself(bool value) external;\r\n}",
   "sourcePath": "E:\\Ethereum\\XOT\\contracts\\voting\\IVoteXot.sol",
   "ast": {
     "absolutePath": "/E/Ethereum/XOT/contracts/voting/IVoteXot.sol",
     "exportedSymbols": {
       "IVoteXot": [
-        102
+        116
       ]
     },
-    "id": 103,
+    "id": 117,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -48,8 +88,8 @@
         "file": "../xot_token/ERC20.sol",
         "id": 96,
         "nodeType": "ImportDirective",
-        "scope": 103,
-        "sourceUnit": 276,
+        "scope": 117,
+        "sourceUnit": 415,
         "src": "28:32:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -60,23 +100,19 @@
         "contractKind": "contract",
         "documentation": "@title IVoteXot\r\n@dev Interface for VoteVox\r",
         "fullyImplemented": false,
-        "id": 102,
+        "id": 116,
         "linearizedBaseContracts": [
-          102
+          116
         ],
         "name": "IVoteXot",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "body": null,
+            "anonymous": false,
             "documentation": null,
-            "id": 101,
-            "implemented": false,
-            "isConstructor": false,
-            "isDeclaredConst": false,
-            "modifiers": [],
-            "name": "vote",
-            "nodeType": "FunctionDefinition",
+            "id": 100,
+            "name": "Leader",
+            "nodeType": "EventDefinition",
             "parameters": {
               "id": 99,
               "nodeType": "ParameterList",
@@ -84,10 +120,11 @@
                 {
                   "constant": false,
                   "id": 98,
-                  "name": "_newLeader",
+                  "indexed": false,
+                  "name": "leader",
                   "nodeType": "VariableDeclaration",
-                  "scope": 101,
-                  "src": "165:18:1",
+                  "scope": 100,
+                  "src": "164:14:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -98,7 +135,7 @@
                     "id": 97,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "165:7:1",
+                    "src": "164:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -108,36 +145,193 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "164:20:1"
+              "src": "163:16:1"
+            },
+            "src": "151:29:1"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 105,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "propose",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 103,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 102,
+                  "name": "_proposed",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 105,
+                  "src": "205:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 101,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "205:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "204:19:1"
             },
             "payable": false,
             "returnParameters": {
-              "id": 100,
+              "id": 104,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "193:0:1"
+              "src": "232:0:1"
             },
-            "scope": 102,
-            "src": "151:43:1",
+            "scope": 116,
+            "src": "188:45:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 110,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "vote",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 108,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 107,
+                  "name": "_newLeader",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 110,
+                  "src": "253:18:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 106,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "253:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "252:20:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 109,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "281:0:1"
+            },
+            "scope": 116,
+            "src": "239:43:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 115,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "proposeItself",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 113,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 112,
+                  "name": "value",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 115,
+                  "src": "311:10:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 111,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "311:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "310:12:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 114,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "331:0:1"
+            },
+            "scope": 116,
+            "src": "288:44:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 103,
-        "src": "124:190:1"
+        "scope": 117,
+        "src": "124:211:1"
       }
     ],
-    "src": "0:314:1"
+    "src": "0:335:1"
   },
   "legacyAST": {
     "absolutePath": "/E/Ethereum/XOT/contracts/voting/IVoteXot.sol",
     "exportedSymbols": {
       "IVoteXot": [
-        102
+        116
       ]
     },
-    "id": 103,
+    "id": 117,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -156,8 +350,8 @@
         "file": "../xot_token/ERC20.sol",
         "id": 96,
         "nodeType": "ImportDirective",
-        "scope": 103,
-        "sourceUnit": 276,
+        "scope": 117,
+        "sourceUnit": 415,
         "src": "28:32:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -168,23 +362,19 @@
         "contractKind": "contract",
         "documentation": "@title IVoteXot\r\n@dev Interface for VoteVox\r",
         "fullyImplemented": false,
-        "id": 102,
+        "id": 116,
         "linearizedBaseContracts": [
-          102
+          116
         ],
         "name": "IVoteXot",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "body": null,
+            "anonymous": false,
             "documentation": null,
-            "id": 101,
-            "implemented": false,
-            "isConstructor": false,
-            "isDeclaredConst": false,
-            "modifiers": [],
-            "name": "vote",
-            "nodeType": "FunctionDefinition",
+            "id": 100,
+            "name": "Leader",
+            "nodeType": "EventDefinition",
             "parameters": {
               "id": 99,
               "nodeType": "ParameterList",
@@ -192,10 +382,11 @@
                 {
                   "constant": false,
                   "id": 98,
-                  "name": "_newLeader",
+                  "indexed": false,
+                  "name": "leader",
                   "nodeType": "VariableDeclaration",
-                  "scope": 101,
-                  "src": "165:18:1",
+                  "scope": 100,
+                  "src": "164:14:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -206,7 +397,7 @@
                     "id": 97,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "165:7:1",
+                    "src": "164:7:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -216,27 +407,184 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "164:20:1"
+              "src": "163:16:1"
+            },
+            "src": "151:29:1"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 105,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "propose",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 103,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 102,
+                  "name": "_proposed",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 105,
+                  "src": "205:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 101,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "205:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "204:19:1"
             },
             "payable": false,
             "returnParameters": {
-              "id": 100,
+              "id": 104,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "193:0:1"
+              "src": "232:0:1"
             },
-            "scope": 102,
-            "src": "151:43:1",
+            "scope": 116,
+            "src": "188:45:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 110,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "vote",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 108,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 107,
+                  "name": "_newLeader",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 110,
+                  "src": "253:18:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 106,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "253:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "252:20:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 109,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "281:0:1"
+            },
+            "scope": 116,
+            "src": "239:43:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 115,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "proposeItself",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 113,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 112,
+                  "name": "value",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 115,
+                  "src": "311:10:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 111,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "311:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "310:12:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 114,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "331:0:1"
+            },
+            "scope": 116,
+            "src": "288:44:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 103,
-        "src": "124:190:1"
+        "scope": 117,
+        "src": "124:211:1"
       }
     ],
-    "src": "0:314:1"
+    "src": "0:335:1"
   },
   "compiler": {
     "name": "solc",
@@ -244,5 +592,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-26T12:34:39.673Z"
+  "updatedAt": "2018-09-26T16:13:39.101Z"
 }

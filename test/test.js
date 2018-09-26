@@ -73,57 +73,122 @@ contract('XotToken', () =>{
   }); 
 })
 
-contract('VoteXot', async () =>{
-  const minimumToVote = await voteXot.methods.minimumToVote().call();
-  assert.equal(minimumToVote, web3.utils.toWei('20', 'ether'));
+contract('VoteXot', () =>{
+  
   describe("Initial Deployment", () => {
 
     it('deploys VoteXot contract', ()=>{
       assert.ok(voteXot.options.address, "voteXot deployment");
     });
 
-    it('votes for new leader', async () => {
+    it('checks the constructor', async () => {
+      const proposedVotes = await voteXot.methods.proposedVotes().call();
+      assert.equal(proposedVotes, 5);
+
+      const leader = await voteXot.methods.leader().call();
+      assert.equal(leader, accounts[0]);
+
+      const token = await voteXot.methods.xotToken().call();
+      assert.equal(token, xotToken.options.address)
+
+    })
+
+    it('proposes and votes for new leader', async () => {
+
+      //check and save some values
+      const minimumToPropose = await voteXot.methods.minimumToPropose().call();
+      assert.equal(minimumToPropose, web3.utils.toWei('100', 'ether'));
+      const minimumToVote = await voteXot.methods.minimumToVote().call();
+      assert.equal(minimumToVote, web3.utils.toWei('20', 'ether'));
+      const allowToExpend = web3.utils.toWei('5000', 'ether');
+
 
       const balanceOfVoter = await xotToken.methods.balanceOf(accounts[0]).call();
       assert.equal(balanceOfVoter, web3.utils.toWei('500000000', 'ether'));
 
-      await xotToken.methods.approve(voteXot.options.address, (minimumToVote*5).toString()).send({
+      //First we approve the contract to expend some amount and check allowance 
+      await xotToken.methods.approve(voteXot.options.address, allowToExpend).send({
         from: accounts[0],
         gas: gas
       })
 
       const allowance = await xotToken.methods.allowance(accounts[0], voteXot.options.address).call();
-      assert.equal(minimumToVote*5, allowance);
+      assert.equal(allowToExpend, allowance);
 
-      const proposedVotes = await voteXot.methods.proposedVotes().call();
+      //Then we can make a proposal for a new leader
+      await voteXot.methods.propose(accounts[1]).send({
+        from: accounts[0],
+        gas: gas
+      });
+
+      const proposed = await voteXot.methods.proposed(accounts[1]).call();
+      assert.ok(proposed)
+
+      //Then we vote the number of times required to become leader
+      let proposedVotes = await voteXot.methods.proposedVotes().call();
       assert.equal(proposedVotes, 5);
 
-      for(let i = 1; i <= proposedVotes; i++) {
+      for(let j = 1; j <= proposedVotes; j++) {
         await voteXot.methods.vote(accounts[1]).send({
           from: accounts[0],
-          gas: '1000000'
+          gas: gas
         }); 
         const numberOfVotes = await voteXot.methods.votes(accounts[1]).call()
-        assert.equal(numberOfVotes, i);
+        assert.equal(numberOfVotes, j);
       }
           
+      //five times a vote = 100 plus the proposed = 200
       const contractBalance = await xotToken.methods.balanceOf(voteXot.options.address).call();
-      assert.equal(contractBalance, web3.utils.toWei('500', 'ether'))
+      assert.equal(contractBalance, web3.utils.toWei('200', 'ether'))
 
+      //we check the new leader
+      const newLeader = await voteXot.methods.leader().call();
+      assert.equal(newLeader, accounts[1]);
 
+      //new leader will change the rule
+      await voteXot.methods.proposeItself(true).send({
+        from: accounts[1],
+        gas: gas
+      });
+
+      const canProposeItself = await voteXot.methods.canProposeItself().call();
+      assert.ok(canProposeItself);
+
+      //we will set a new leader by voting one more time
+      proposedVotes = await voteXot.methods.proposedVotes().call();
+      assert.equal(proposedVotes, 6);
+
+      //user will propose itself
+      await xotToken.methods.transfer(accounts[2], allowToExpend).send({
+        from: accounts[0],
+        gas: gas
+      })
+      await xotToken.methods.approve(voteXot.options.address, allowToExpend).send({
+        from: accounts[2],
+        gas: gas
+      })
+      await voteXot.methods.propose(accounts[2]).send({
+        from: accounts[2],
+        gas: gas
+      });
       
-      // xotToken.approve(address(this), minimumToVote);
-      //const allowance = await xotToken.methods.allowance(accounts[0], voteXot.options.address).call();
-      //console.log(allowance);
+      for(let i = 1; i <= proposedVotes; i++) {
+        await voteXot.methods.vote(accounts[2]).send({
+          from: accounts[0],
+          gas: gas
+        }); 
 
-      //const newBalanceOfVoter = await xotToken.methods.balanceOf(accounts[0]).call();
-      //assert.equal(newBalanceOfVoter, web3.utils.toWei('499999900', 'ether'));
+        const numberOfVotes = await voteXot.methods.votes(accounts[2]).call()
+        assert.equal(numberOfVotes, i);
 
-/*
-function allowance(address _owner, address _spender) public view returns (uint256) {
-      
-      assert.equal(balanceOfCreator, web3.utils.toWei('500000000', 'ether'));
-*/
+        const currentLeader = await voteXot.methods.leader().call();
+
+        if(i < proposedVotes) {
+          assert.equal(currentLeader, accounts[1]);
+        } else {
+          assert.equal(currentLeader, accounts[2]);
+        }
+      }
     });
   }); 
 })

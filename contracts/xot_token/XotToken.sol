@@ -1,42 +1,18 @@
-pragma solidity "0.4.25";
+pragma solidity ^0.4.23;
 
-import "./ERC20.sol";
+import "./StandardToken.sol";
+import "../utils/Ownable.sol";
 
-/**
- * @title XotToken token
- * @dev The decimals are only for visualization purposes.
- * All the operations are done using the smallest and indivisible token unit,
- * just as on Ethereum all the operations are done in wei.
- */
-contract XotToken is ERC20 {
-  string private _name;
-  string private _symbol;
-  uint8 private _decimals;
 
-  constructor(string name, string symbol, uint8 decimals) public {
-    _name = name;
-    _symbol = symbol;
-    _decimals = decimals;
-  }
+contract XotToken is StandardToken, Ownable {
+    string public constant name = "Xot Token"; 
+    string public constant symbol = "XOT"; 
+    uint8 public constant decimals = 18; 
+    uint256 public constant INITIAL_SUPPLY = 500000000 * (10 ** uint256(decimals));
 
-  /**
-   * @return the name of the token.
-   */
-  function name() public view returns(string) {
-    return _name;
-  }
-
-  /**
-   * @return the symbol of the token.
-   */
-  function symbol() public view returns(string) {
-    return _symbol;
-  }
-
-  /**
-   * @return the number of decimals of the token.
-   */
-  function decimals() public view returns(uint8) {
-    return _decimals;
-  }
+    constructor() public {
+        totalSupply_ = INITIAL_SUPPLY;
+        balances[msg.sender] = INITIAL_SUPPLY;
+        emit Transfer(0x0, msg.sender, INITIAL_SUPPLY);
+    }
 }
